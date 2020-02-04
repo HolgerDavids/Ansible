@@ -1,0 +1,37 @@
+########################################################
+#Exemplo de criação de arquivo básico                  #
+########################################################
+
+########################################################
+#Validando instalação apache na sua ultima versão      #
+########################################################
+---
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: Certificando que o apache está instalado e na sua última versão
+    yum:
+      name: httpd
+      state: latest
+  - name: write the apache config file
+    template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+########################################################
+#Aqui está sendo definido qual grupo / usuário de hosts#
+#será afetado pelo playbook                            #
+########################################################
+ - hosts: databases
+  remote_user: root
+########################################################
+#Validando instalação postgresql na sua ultima versão  #
+########################################################
+  tasks:
+  - name: ensure postgresql is at the latest version
+    yum:
+      name: postgresql
+      state: latest
+  - name: ensure that postgresql is started
+    service:
+      name: postgresql
+      state: started
