@@ -1,6 +1,6 @@
 # AWS playbook
 ---
-
+- teste de alteração 2
 - hosts: localhost
   connection: local
   gather_facts: False
